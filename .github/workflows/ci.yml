@@ -6,10 +6,6 @@ on:
   pull_request:
     branches: [ main ]
 
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
-
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -26,10 +22,16 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Restore dependencies
+      - name: Restore main app
+        run: dotnet restore IsLabApp.csproj
+
+      - name: Build main app
+        run: dotnet build IsLabApp.csproj --no-restore
+
+      - name: Restore tests
         run: dotnet restore IsLabApp.Tests/IsLabApp.Tests.csproj
 
-      - name: Build
+      - name: Build tests
         run: dotnet build IsLabApp.Tests/IsLabApp.Tests.csproj --no-restore
 
       - name: Test
