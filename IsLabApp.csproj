@@ -11,4 +11,7 @@
     <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="IsLabApp.Tests/**/*" />
+  </ItemGroup>
 </Project>
