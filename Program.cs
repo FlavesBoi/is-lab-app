@@ -86,3 +86,4 @@ record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 public record Note(int Id, string Title, string Text, DateTime CreatedAt);
 
 
+
