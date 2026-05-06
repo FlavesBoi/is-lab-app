@@ -53,3 +53,10 @@ sudo docker compose exec mssql /opt/mssql-tools18/bin/sqlcmd \
   -S localhost -U sa -P "${SA_PASSWORD}" -No \
   -Q "DROP DATABASE IsLabDb_RestoreTest;"
 ```
+
+## Политика хранения бэкапов
+Хранить последние 5 бэкапов. Удалять файлы старше 7 дней:
+```bash
+find /opt/backups/mssql -name "*.bak" -mtime +7 -delete
+```
+Команду рекомендуется добавить в cron для автоматической очистки.
