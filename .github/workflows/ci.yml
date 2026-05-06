@@ -14,25 +14,23 @@ jobs:
       packages: write
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v4
+      - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
 
-      - name: Restore and build
+      - name: Build main app
+        working-directory: ./
         run: |
           dotnet restore IsLabApp.csproj
-          dotnet build IsLabApp.csproj --no-restore
+          dotnet build IsLabApp.csproj --no-restore --configuration Release
 
-      - name: Restore and test
+      - name: Test
+        working-directory: ./IsLabApp.Tests
         run: |
-          cd IsLabApp.Tests
           dotnet restore
-          dotnet build
-          dotnet test --no-build --verbosity normal
+          dotnet test --verbosity normal
 
       - name: Login to GHCR
         uses: docker/login-action@v3
